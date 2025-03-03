@@ -47,7 +47,7 @@ class Validator:
     def check_cell_enrichment(self, obs):
         """Check Cell Enrichment."""
         # POSSIBLE TO DO: add step to check for valid CL term 
-        pattern = r"^CL:(00000000|[0-9]{8}[+-])$"
+        pattern = r"^CL:(00000000|[0-9]{7}[+-])$"
         if "cell_enrichment" in obs:
             cell_enrichment_list = list(obs.cell_enrichment.unique())
             for cell_enrich_term in cell_enrichment_list:
