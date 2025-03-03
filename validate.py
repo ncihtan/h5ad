@@ -41,9 +41,11 @@ def validate(h5ad_path):
     validator = Validator(adata)
     error_list.extend(validator.error_list)
     if len(error_list) == 0:
-        print("Validation Passed!")
+        click.echo(click.style("Validation Passed!", 
+                           fg="green"))
     else:
-        print("Validation Failed")
+        click.echo(click.style("Validation Failed.", 
+                           fg="red"))
         ## to do -- create error log
         for error in error_list:
             print(error)
