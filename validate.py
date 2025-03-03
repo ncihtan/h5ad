@@ -18,25 +18,33 @@ def validate(h5ad_path):
     click.echo(click.style("Running cellxgene-schema", fg="green"))
     click.echo(click.style("The following output is from cellxgene-schema", fg="green"))
 
-    os.environ['H5AD_PATH'] = h5ad_path
-    os.system("cellxgene-schema validate $H5AD_PATH")  
-    click.echo(click.style("Cellxgene run complete. Please note any errors or warnings in the output above this line.", 
-                           fg="green"))
-    
     try: 
         adata = anndata.read_h5ad(h5ad_path)
     except:
         click.echo(click.style("Unable to open File:  " + h5ad_path, fg="red"))
+        click.echo(click.style("Please check file path and file integrity.", fg="red"))
         return
+    
+    os.environ['H5AD_PATH'] = h5ad_path
+    cellxgene = os.WEXITSTATUS(os.system("cellxgene-schema validate $H5AD_PATH"))  
+    if cellxgene !=0:
+        error_list = ['cellxgene-schema error']
+        click.echo(click.style("Cellxgene run has errors. Please note errors or warnings in the output above this line.", 
+                           fg="red"))
+    else: 
+        error_list = []
+        click.echo(click.style("Cellxgene run successful. Please note any warnings in the output above this line.", 
+                           fg="green"))
 
     
-    #### TO DO: need to not report validation passed if cellxgene Schema has error
+    click.echo(click.style("Running HTAN specific checks.", fg="green"))
     validator = Validator(adata)
-    error_list = validator.error_list
+    error_list.extend(validator.error_list)
     if len(error_list) == 0:
         print("Validation Passed!")
     else:
         print("Validation Failed")
+        ## to do -- create error log
         for error in error_list:
             print(error)
 
