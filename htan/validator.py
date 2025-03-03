@@ -8,16 +8,16 @@ class Validator:
         """Constructor with anndata data structure."""
         self.adata = adata
         self.error_list = []
-        gene_list = self.adata.var.index.tolist()
-        self._check_genes(gene_list)
+        #gene_list = self.adata.var.index.tolist()
+        #self._check_genes(gene_list)
         self.check_donor_ids(adata.obs)
         self.check_sample_ids(adata.obs)
 
-    def _check_genes(self, gene_list):
-        """Check Genes."""
-        for gene in gene_list:
-            if not gene.startswith("ENSG"):
-                self.error_list.append("Invalid gene identifier:  " + gene)
+    #def _check_genes(self, gene_list):
+    #    """Check Genes."""
+    #    for gene in gene_list:
+    #        if not gene.startswith("ENSG"):
+    #            self.error_list.append("Invalid gene identifier:  " + gene)
 
     def check_donor_ids(self, obs):
         """Check Donor IDs."""
