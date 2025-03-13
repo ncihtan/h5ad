@@ -1,44 +1,61 @@
 import anndata
 import re
 import os
+import subprocess
 import click
 
 
 class Validator:
     """HTAN h5ad Validator."""
 
-    def __init__(self, adata, h5ad_path):
+    def __init__(self, adata, h5ad_path, output_file):
         """Constructor with anndata data structure."""
         self.adata = adata
         self.h5ad_path = h5ad_path
+        self.output_file = output_file
         self.error_list = []
         self.pass_code = [0,0]  #pass code initially set to pass. 
                                 #update to [1,0] if fail cellxgene, [0,1] if fail HTAN.
                                 # [1,1] if fail both
-        self.check_cell_x_gene(adata, h5ad_path)
+        self.check_cell_x_gene(h5ad_path, output_file)
         self.check_donor_ids(adata.obs)
         self.check_sample_ids(adata.obs)
         self.check_cell_enrichment(adata.obs)
         self.check_intron_inclusion(adata.obs)
 
-    def check_cell_x_gene(self, adata, h5ad_path):
+    def check_cell_x_gene(self, h5ad_path, output_file):
         """run cell x gene validation"""
         click.echo(click.style("Running cellxgene-schema", fg="green"))
-        click.echo(click.style("The following output is from cellxgene-schema", fg="green"))
-        os.environ['H5AD_PATH'] = h5ad_path
-        cellxgene = os.WEXITSTATUS(os.system("cellxgene-schema validate $H5AD_PATH"))  
+        
+        def run_cellxgene(h5ad_path, output_file):
+            try:
+                process = subprocess.run(
+                    ["cellxgene-schema", "validate", h5ad_path],
+                    capture_output=True,
+                    text=True,
+                    check=False # Do not raise an exception on non-zero exit code
+                )
+                with open(output_file, "w") as f:
+                    f.write("cellxgene-schema output: ")
+                    f.write(process.stderr)
+                return process.returncode
+            except Exception as e:
+                    print(f"An error occurred: {e}")
+                    return -1 # Return -1 to indicate an error during execution
+        
+        cellxgene = run_cellxgene(h5ad_path, output_file)
+        
         if cellxgene !=0:
-            self.error_list = ['cellxgene-schema error']
             self.pass_code[0] = 1
-            click.echo(click.style("Cellxgene run has errors. Please note errors or warnings in the output above this line.", 
+            click.echo(click.style("Cellxgene run has errors. Please note errors or warnings in the output file.", 
                            fg="red"))
         else: 
-            self.error_list = []
-            click.echo(click.style("Cellxgene run successful. Please note any warnings in the output above this line.", 
+            click.echo(click.style("Cellxgene run successful. Please check the output file to see if warnings exist.", 
                            fg="green"))
    
     def check_donor_ids(self, obs):
         """Check Donor IDs."""
+        click.echo(click.style("Running HTAN-specific validation", fg="green"))
         pattern = r"^(HTA20[0-9])(?:_0000)?(?:_\d+)?(?:_EXT\d+)?"
         if "donor_id" in obs:
             donor_list = list(obs.donor_id.unique())
