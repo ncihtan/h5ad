@@ -11,7 +11,6 @@ import os
 @click.argument("h5ad_path")
 def validate(h5ad_path):
     """HTAN h5ad Validator."""
-    # TODO:  We should first run the built in CellXGene Validator, e.g via os()
     click.echo(click.style("HTAN h5ad File Validator", bg="blue", fg="white"))
     click.echo(click.style("File:  " + h5ad_path, fg="green"))
     

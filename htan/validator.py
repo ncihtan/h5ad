@@ -26,7 +26,7 @@ class Validator:
                 if re.match(pattern, donor_id):   
                     pass
                 else:
-                    self.error_list.append("Invalid donor_id:  " + donor_id)
+                    self.error_list.append("Invalid donor_id: " + donor_id)
         else:
             self.error_list.append("donor_id was not found in obs")
 
@@ -40,7 +40,7 @@ class Validator:
                 if re.match(pattern, sample_id):
                     pass
                 else:
-                    self.error_list.append("Invalid sample_id:  " + sample_id)
+                    self.error_list.append("Invalid sample_id: " + sample_id)
         else:
             self.error_list.append("sample_id was not found in obs")
 
