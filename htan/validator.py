@@ -61,13 +61,14 @@ class Validator:
     def check_intron_inclusion(self, obs):
         """Check intron inclusion"""
         valid_values = ['yes','no']
-        intron_inclusion_list = list(obs.intron_inclusion.unique().astype(str))
         if "intron_inclusion" in obs:
+            intron_inclusion_list = list(obs.intron_inclusion.unique().astype(str))
             for intron_include_term in intron_inclusion_list:
                 if intron_include_term in valid_values:
                     pass
                 else:
-                    self.error_list.append("Invalid intron_inclusion term: " + intron_include_term + ". Must be 'yes' or 'no'.")
+                    self.error_list.append("Invalid intron_inclusion term: " + intron_include_term \
+                                           + ". Must be 'yes' or 'no'.")
         else:
             self.error_list.append("intron_inclusion was not found in obs")
 
