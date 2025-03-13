@@ -28,10 +28,10 @@ def test_validator0():
         "UUID_12321",
     ]
     sample_ids = [
-        "HTA200_1_1",
-        "HTA200_1_1",
-        "HTA200_1_1",
-        "HTA200_1_1",
+        "HTA200_1_B1",
+        "HTA200_1_B1",
+        "HTA200_1_B1",
+        "HTA200_1_D1",
         "UUID_12321",
     ]
     adata.var_names = human_ensembl_ids
@@ -39,8 +39,14 @@ def test_validator0():
     adata.obs["sample_id"] = sample_ids
     validator = Validator(adata)
 
-    error_list = validator.error_list
-    assert len(error_list) == 3
-    assert error_list[0] == "Invalid gene identifier:  EGFR"
-    assert error_list[1] == "Invalid donor_id:  UUID_12321"
-    assert error_list[2] == "Invalid sample_id:  UUID_12321"
+    error_list = set(validator.error_list)
+    donor_error = "Invalid donor_id: UUID_12321"
+    sample_error = "Invalid sample_id: UUID_12321"
+    cell_enrich_error = "cell_enrichment was not found in obs"
+    intron_inclusion_error = "intron_inclusion was not found in obs"
+
+    assert len(error_list) == 4
+    assert donor_error in error_list
+    assert sample_error in error_list
+    assert cell_enrich_error in error_list
+    assert intron_inclusion_error in error_list
