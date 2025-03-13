@@ -25,7 +25,7 @@ pip install -r requirements.txt
 To run the validator from the command line, run:
 
 ```commandline
-python validate.py example/HTAN_h5ad_exemplar_2025_03_03.h5ad
+python validate.py example/HTAN_h5ad_exemplar_2025_03_03.h5ad output_file.txt
 ```
 
 To run the unit tests, run:

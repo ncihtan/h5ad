@@ -37,7 +37,13 @@ def test_validator0():
     adata.var_names = human_ensembl_ids
     adata.obs["donor_id"] = donor_ids
     adata.obs["sample_id"] = sample_ids
-    validator = Validator(adata)
+
+    #store adata -- this will be replaced with permanent example
+    test_name = "tests/test.h5ad"
+    adata.write_h5ad(test_name)
+
+
+    validator = Validator(adata, test_name, "tests/test_out.txt")
 
     error_list = set(validator.error_list)
     donor_error = "Invalid donor_id: UUID_12321"
