@@ -1,6 +1,7 @@
 import re
 import subprocess
 import click
+import pandas as pd
 
 
 class Validator:
@@ -92,14 +93,29 @@ class Validator:
         # POSSIBLE TO DO: add step to check for valid CL term
         pattern = (
             r"^CL:(00000000|[0-9]{7}[+-])$")
+        CL_ontology = pd.read_csv("htan/CL_codes_human.tsv", sep='\t')
+        CL_valid_terms = list(CL_ontology['Permissible Value'])
+        CL_valid_terms.append("CL:00000000")
         if "cell_enrichment" in obs:
             cell_enrichment_list = list(obs.cell_enrichment.unique())
             for cell_enrich_term in cell_enrichment_list:
+                CL_term = re.sub('[+-]', '', cell_enrich_term)
                 if re.match(pattern, cell_enrich_term):
-                    pass
+                    if CL_term in CL_valid_terms:
+                        pass
+                    else:
+                        self.error_list.append("Invalid cell_enrichment term "
+                                               + cell_enrich_term +
+                                               ". CL_term is not in "
+                                               "CL_codes_human.tsv")
+                        self.pass_code[1] = 1
                 else:
                     self.error_list.append("Invalid cell_enrichment term "
-                                           + cell_enrich_term)
+                                           + cell_enrich_term +
+                                           ". obs.cell_enrichment must be "
+                                           "CL term followed by a '+' or '-' "
+                                           "sign or CL:00000000 if no "
+                                           "enrichment.")
                     self.pass_code[1] = 1
         else:
             self.error_list.append("cell_enrichment was not found in obs")
