@@ -95,6 +95,7 @@ class Validator:
             r"^CL:(00000000|[0-9]{7}[+-])$")
         CL_ontology = pd.read_csv("htan/CL_codes_human.tsv", sep='\t')
         CL_valid_terms = list(CL_ontology['Permissible Value'])
+        CL_valid_terms.append("CL:00000000")
         if "cell_enrichment" in obs:
             cell_enrichment_list = list(obs.cell_enrichment.unique())
             for cell_enrich_term in cell_enrichment_list:
