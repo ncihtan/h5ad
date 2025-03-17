@@ -4,7 +4,8 @@ from htan.validator import Validator
 
 
 def test_validator0():
-    """Test Gene Validator"""
+    """Test Gene Validator with incorrect ensembl_ids, donor_ids,
+    samples_ids, cell_enrichment, intron_inclusion."""
     # Create a matrix for 5 cells x 5 genes
     x = np.random.poisson(1, size=(5, 5))
     adata = anndata.AnnData(x)
