@@ -55,10 +55,9 @@ def test_validator0():
     adata.obs["cell_enrichment"] = cell_enrichment
     adata.obs["intron_inclusion"] = intron_inclusion
 
-    #store adata for cellxgene check
+    # store adata for cellxgene check
     test_name = "tests/test.h5ad"
     adata.write_h5ad(test_name)
-
 
     validator = Validator(adata, test_name, "tests/test_out.txt")
 
