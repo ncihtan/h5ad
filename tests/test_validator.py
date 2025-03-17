@@ -34,11 +34,28 @@ def test_validator0():
         "HTA200_1_D1",
         "UUID_12321",
     ]
+    cell_enrichment = [
+        "CL:0000182+",
+        "CL:9999999+",
+        "CL:00000000",
+        "CL:0000182",
+        "t-cells"
+    ]
+    intron_inclusion = [
+        "",
+        "no",
+        "yes",
+        "true",
+        "false"
+    ]
+
     adata.var_names = human_ensembl_ids
     adata.obs["donor_id"] = donor_ids
     adata.obs["sample_id"] = sample_ids
+    adata.obs["cell_enrichment"] = cell_enrichment
+    adata.obs["intron_inclusion"] = intron_inclusion
 
-    #store adata -- this will be replaced with permanent example
+    #store adata for cellxgene check
     test_name = "tests/test.h5ad"
     adata.write_h5ad(test_name)
 
@@ -48,11 +65,32 @@ def test_validator0():
     error_list = set(validator.error_list)
     donor_error = "Invalid donor_id: UUID_12321"
     sample_error = "Invalid sample_id: UUID_12321"
-    cell_enrich_error = "cell_enrichment was not found in obs"
-    intron_inclusion_error = "intron_inclusion was not found in obs"
+    cell_enrich_error1 = ("Invalid cell_enrichment term CL:9999999+. "
+                          "CL_term is not in CL_codes_human.tsv")
+    cell_enrich_error2 = ("Invalid cell_enrichment term CL:0000182. "
+                          "obs.cell_enrichment must be "
+                          "CL term followed by a '+' or '-' "
+                          "sign or CL:00000000 if no enrichment.")
+    cell_enrich_error3 = ("Invalid cell_enrichment term t-cells. "
+                          "obs.cell_enrichment must be "
+                          "CL term followed by a '+' or '-' "
+                          "sign or CL:00000000 if no enrichment.")
+    intron_inclusion_error1 = ("Invalid intron_inclusion term: true. "
+                               "Must be 'yes' or 'no'.")
+    intron_inclusion_error2 = ("Invalid intron_inclusion term: . "
+                               "Must be 'yes' or 'no'.")
+    intron_inclusion_error3 = ("Invalid intron_inclusion term: false. "
+                               "Must be 'yes' or 'no'.")
 
-    assert len(error_list) == 4
+    pass_code = validator.pass_code
+
+    assert len(error_list) == 8
     assert donor_error in error_list
     assert sample_error in error_list
-    assert cell_enrich_error in error_list
-    assert intron_inclusion_error in error_list
+    assert cell_enrich_error1 in error_list
+    assert cell_enrich_error2 in error_list
+    assert cell_enrich_error3 in error_list
+    assert intron_inclusion_error1 in error_list
+    assert intron_inclusion_error2 in error_list
+    assert intron_inclusion_error3 in error_list
+    assert pass_code == [1, 1]
