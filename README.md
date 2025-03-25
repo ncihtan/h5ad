@@ -1,7 +1,32 @@
 # HTAN h5ad Validator
 
-This is a bare bones h5ad validator for HTAN.
+This is an (AnnData 0.10) h5ad validator for HTAN Phase 2 single cell/single nuclei RNA-sequencing data. It:
+1. runs [cellxgene-schema validate](https://github.com/chanzuckerberg/single-cell-curation) to check if the h5ad file conforms to CELLxGENE's schema; and
+2. Runs additional scripts to validate HTAN-specific requirements.
 
+## Installation
+
+(Pip install capability and directions pending)
+
+To check your installation, run:
+
+```commandline
+python validate.py example/HTAN_h5ad_exemplar_2025_03_03.h5ad output_file.txt
+```
+
+## Use
+To validate an h5ad file, run the following from the command line:
+
+```commandline
+python validate.py {path/to/your/h5ad} {output_filename}.txt
+```
+replacing {path/to/your/h5ad} and {output_filename} with appropriate text strings. (Please see Installation instructions for an example.)
+
+Information regarding whether the h5ad file passed or failed validation will be printed to the terminal window. Warnings and error messages will be printed to {output_filename}.txt.
+
+If the h5ad file fails validation, please resolve the errors noted and retry validation.
+
+## Information for Developers
 To further develop this code, please use Python 3.6 or above.
 
 Next, it is recommended that you create a virtual environment:
@@ -33,8 +58,7 @@ To run the unit tests, run:
 ```commandline
 pytest tests
 ```
-
-## Validate.py
+### Validate.py
 
 Provided a valid h5ad file path and an output filename, Validate.py will: 
 1. Create a Validator object with:
@@ -53,16 +77,16 @@ Provided a valid h5ad file path and an output filename, Validate.py will:
 2. Evaluate the self.pass_code to produce final message (Validation Passed) or failure messsage.
 3. Print all function warnings and errors to the provided output file.
 
-## Specific Validation Functions
+### Specific Validation Functions (htan/validator.py)
 
-### CELLxGENE Validation
+#### CELLxGENE Validation
 - self.check_cell_x_gene(h5ad_path, output_file)
-    - runs cellxgene-schema.
+    - runs [cellxgene-schema](https://github.com/chanzuckerberg/single-cell-curation).
     - writes warnings and error messages to the provided output_file.
     - writes cellxgene-schema pass or fail message to screen.
     - if any errors, pass_code[0] is set to 1
 
-### HTAN-specific Validation
+#### HTAN-specific Validation
 - self.check_donor_ids(adata.obs)
     - checks for presence of obs.donor_id.
     - checks all unique values in obs.donor_id for match to r"^(HTA20[0-9])(?:_0000)?(?:_\d+)?(?:_EXT\d+)?"
