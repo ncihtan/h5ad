@@ -1,6 +1,6 @@
 # HTAN h5ad Validator
 
-This is a bare bones h5ad validator for HTAN.
+This is a bare bones h5ad validator for HTAN. Additional information about the validations performed is include later in this README file.
 
 To further develop this code, please use Python 3.6 or above.
 
@@ -38,8 +38,8 @@ pytest tests
 
 Provided a valid h5ad file path and an output filename, Validate.py will: 
 1. Create a Validator object with:
-    - self.error_list: a list of errors from HTAN specific validations
-    - self.pass_code: a two item list where 0 indicates pass and 1 indicated fail
+    - self.error_list: a list of errors from HTAN specific validations.
+    - self.pass_code: a two item list where 0 indicates pass and 1 indicates fail.
         - [0,0] = pass both cellxgene-schema and HTAN-specific validation.
         - [1,0] = fail cellxgene-schema, pass HTAN-specific validation.
         - [0,1] = pass cellxgene-schema, fail HTAN-specific validation.
@@ -60,25 +60,25 @@ Provided a valid h5ad file path and an output filename, Validate.py will:
     - runs cellxgene-schema.
     - writes warnings and error messages to the provided output_file.
     - writes cellxgene-schema pass or fail message to screen.
-    - if any errors, pass_code[0] set to 1
+    - if any errors, pass_code[0] is set to 1
 
 ### HTAN-specific Validation
 - self.check_donor_ids(adata.obs)
     - checks for presence of obs.donor_id.
     - checks all unique values in obs.donor_id for match to r"^(HTA20[0-9])(?:_0000)?(?:_\d+)?(?:_EXT\d+)?"
-    - if any errors, pass_code[1] set to 1, errors added to error_list.
+    - if any errors, pass_code[1] is set to 1 and error strings added to error_list.
  - self.check_sample_ids(adata.obs)
     - checks for presence of obs.sample_id.
     - checks all unique values in obs.sample_id for match to r"^(HTA20[0-9])(?:_0000)?(?:_\d+)?(?:_EXT\d+)?_(B|D)\d{1,50}$"
-    - if any errors, pass_code[1] set to 1, errors added to error_list.
+    - if any errors, pass_code[1] is set to 1 and error strings added to error_list.
 - self.check_cell_enrichment(adata.obs)
     - checks for presence of obs.cell_enrichment.
     - checks that all unique values in obs.cell_enrichment for match to r"^CL:(00000000|[0-9]{7}[+-])$"
     - strips + or - character from the cell_enrichment term to check if the CL term is valid.
         - valid CL terms taken from file htan/CL_codes_human.tsv
         - CL:00000000 (no enrichment) added to htan/CL_codes_human.tsv before term checked.
-    - if any errors, pass_code[1] set to 1, errors added to error_list.
+    - if any errors, pass_code[1] is set to 1 and error strings added to error_list.
 - self.check_intron_inclusion(adata.obs)
     - checks for presence of obs.intron_inclusion.
     - verifies all unique values in obs.intron_inclusion are in ['yes','no']
-    - if any errors, pass_code[1] set to 1, errors added to error_list.
+    - if any errors, pass_code[1] is set to 1 and error strings added to error_list.
