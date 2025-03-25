@@ -1,6 +1,6 @@
 # HTAN h5ad Validator
 
-This is a bare bones h5ad validator for HTAN. Additional information about the validations performed is include later in this README file.
+This is a bare bones h5ad validator for HTAN.
 
 To further develop this code, please use Python 3.6 or above.
 
