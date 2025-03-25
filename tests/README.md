@@ -2,9 +2,9 @@
 
 The following tests exist in this folder:
 
-1. test_0_validator.py \
+1. test_0_validator.py
 
-    Simulation of incorrect values for donor_id, sample_id, cell_enrichment and intron_inclusion. Should also produce cellxgene-schema errors which are captured in test_out.txt. \
+    Simulation of incorrect values for donor_id, sample_id, cell_enrichment and intron_inclusion. Should also produce cellxgene-schema errors which are captured in test_out.txt.
 
     - creates a dummy adata object and saves it in h5ad format as "test.h5ad"
         - adata has errors in ensemble_id, donor_id, sample_id, cell_enrichment and intron_inclusion.
@@ -26,9 +26,9 @@ The following tests exist in this folder:
     - does not assert specific cellxgene-schema errors, but these can be found in test_out.txt
 
 
-2. test_1_validator.py \
+2. test_1_validator.py
 
-    Simulation of missing obs.donor_id, obs.sample_id, obs.cell_enrichment and obs.intron_inclusion. Should also produce cellxgene-schema errors which are captured in test_out.txt. \
+    Simulation of missing obs.donor_id, obs.sample_id, obs.cell_enrichment and obs.intron_inclusion. Should also produce cellxgene-schema errors which are captured in test_out.txt.
 
     - creates a dummy adata object and saves it in h5ad format as "test.h5ad"
         - adata has error in ensemble_id
@@ -40,7 +40,7 @@ The following tests exist in this folder:
         - final pass code is [1,1]. (failed both cellxgene-schema.py and HTAN-specific validations.)
     - does not assert specific cellxgene-schema errors, but these can be found in test_out.txt
 
-3. test_2_validator.py \
+3. test_2_validator.py
 
     Simulation of incorrect path for h5ad file and/or corrupt h5ad.
 
