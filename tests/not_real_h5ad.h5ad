@@ -1,0 +1,3 @@
+cellxgene-schema output: Starting validation...
+WARNING: Dataframe 'var' only has 12641 rows. Features SHOULD NOT be filtered from expression matrix.
+Validation complete in 0:00:03.672054 with status is_valid=True
