@@ -27,7 +27,7 @@ Information regarding whether the h5ad file passed or failed validation will be 
 If the h5ad file fails validation, please resolve the errors noted and retry validation.
 
 ## Information for Developers
-To further develop this code, please use Python 3.6 or above.
+To further develop this code, please use Python >= 3.8.
 
 Next, it is recommended that you create a virtual environment:
 
