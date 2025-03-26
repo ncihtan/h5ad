@@ -5,6 +5,7 @@ requires-python = ">=3.8"
 version = "0.1.0"
 license = { file = "LICENSE.txt" }
 readme = "README.md"
+keywords = ["HTAN", "HTAN sc/snRNA-seq", "HTAN h5ad"]
 dependencies = [
     "anndata==0.10.8",
     "array_api_compat==1.11",
@@ -48,4 +49,4 @@ build-backend = "setuptools.build_meta"
 validate = "h5ad_validate:validate.run_validate"
 
 [project.urls]
-"github" = "https://github.com/ncihtan/h5ad"
+Repository = "https://github.com/ncihtan/h5ad"
