@@ -1,0 +1,15 @@
+LICENSE
+README.md
+pyproject.toml
+src/HTAN_h5ad_validate.egg-info/PKG-INFO
+src/HTAN_h5ad_validate.egg-info/SOURCES.txt
+src/HTAN_h5ad_validate.egg-info/dependency_links.txt
+src/HTAN_h5ad_validate.egg-info/entry_points.txt
+src/HTAN_h5ad_validate.egg-info/requires.txt
+src/HTAN_h5ad_validate.egg-info/top_level.txt
+src/h5ad_validate/__init__.py
+src/h5ad_validate/validate.py
+src/h5ad_validate/validator.py
+tests/test_0_validator.py
+tests/test_1_validator.py
+tests/test_2_validate.py

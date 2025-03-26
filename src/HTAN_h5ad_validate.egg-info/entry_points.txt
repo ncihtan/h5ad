@@ -1,0 +1,3 @@
+[console_scripts]
+validate = h5ad_validate:validate.run_validate
+validator = htan:validator

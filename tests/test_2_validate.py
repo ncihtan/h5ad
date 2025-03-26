@@ -1,5 +1,5 @@
 import pytest
-from validate import validate
+from h5ad_validate.validate import run_validate
 
 
 def test_validate():
@@ -10,9 +10,9 @@ def test_validate():
     non_h5ad = "tests/not_real_h5ad"
 
     with pytest.raises(SystemExit) as excinfo:
-        validate(incorrect_path, "test_validate_out.txt")
+        run_validate(incorrect_path, "test_validate_out.txt")
     assert excinfo.value.code == 2
 
     with pytest.raises(SystemExit) as excinfo:
-        validate(non_h5ad, "test_validate_out.txt")
+        run_validate(non_h5ad, "test_validate_out.txt")
     assert excinfo.value.code == 2
