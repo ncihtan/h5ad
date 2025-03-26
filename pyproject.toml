@@ -42,4 +42,3 @@ build-backend = "setuptools.build_meta"
 
 [project.scripts]
 validate = "h5ad_validate:validate.run_validate"
-validator = "htan:validator"
