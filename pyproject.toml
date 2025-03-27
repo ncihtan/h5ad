@@ -2,7 +2,7 @@
 name = "HTAN-h5ad-validate"
 description = "Validates AnnData h5ad files for adherence to HTAN sc/snRNA-seq requirements."
 requires-python = ">=3.8"
-version = "0.1.0"
+version = "0.1.1"
 license = { file = "LICENSE.txt" }
 readme = "README.md"
 keywords = ["HTAN", "HTAN sc/snRNA-seq", "HTAN h5ad"]
@@ -50,3 +50,12 @@ HTAN-h5ad-validate = "h5ad_validate:validate.run_validate"
 
 [project.urls]
 Repository = "https://github.com/ncihtan/h5ad"
+
+[tool.setuptools]
+include-package-data = true
+
+[tool.setuptools.package-data]
+"h5ad_validate"  = [
+    "../example/*",
+    "../reference/*"
+]
