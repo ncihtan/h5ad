@@ -46,7 +46,7 @@ requires = ["setuptools==69"]
 build-backend = "setuptools.build_meta"
 
 [project.scripts]
-validate = "h5ad_validate:validate.run_validate"
+HTAN-h5ad-validate = "h5ad_validate:validate.run_validate"
 
 [project.urls]
 Repository = "https://github.com/ncihtan/h5ad"
