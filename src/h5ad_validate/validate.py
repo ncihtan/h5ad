@@ -2,6 +2,7 @@
 HTAN h5ad Validator.
 """
 from h5ad_validate.validator import Validator
+from h5ad_validate.get_data import get_example
 import anndata
 import click
 import sys
@@ -13,7 +14,10 @@ import sys
 def run_validate(h5ad_path, output_file):
     """HTAN h5ad Validator."""
     click.echo(click.style("HTAN h5ad File Validator", bg="blue", fg="white"))
-    click.echo(click.style("File:  " + h5ad_path, fg="green"))
+    if h5ad_path == "example":
+        h5ad_path = get_example()
+
+    click.echo(click.style("File:  " + str(h5ad_path), fg="green"))
 
     """Make sure file exists and can be opened"""
     try:
