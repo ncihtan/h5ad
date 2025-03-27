@@ -1,6 +1,6 @@
 import anndata
 import numpy as np
-from htan.validator import Validator
+from h5ad_validate.validator import Validator
 
 
 def test_validator0():

@@ -1,7 +1,7 @@
 """
 HTAN h5ad Validator.
 """
-from htan.validator import Validator
+from h5ad_validate.validator import Validator
 import anndata
 import click
 import sys
@@ -10,7 +10,7 @@ import sys
 @click.command()
 @click.argument("h5ad_path")
 @click.argument("output_file")
-def validate(h5ad_path, output_file):
+def run_validate(h5ad_path, output_file):
     """HTAN h5ad Validator."""
     click.echo(click.style("HTAN h5ad File Validator", bg="blue", fg="white"))
     click.echo(click.style("File:  " + h5ad_path, fg="green"))
@@ -48,4 +48,4 @@ def validate(h5ad_path, output_file):
 
 
 if __name__ == "__main__":
-    validate()
+    run_validate()

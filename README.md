@@ -6,19 +6,52 @@ This is an (AnnData 0.10) h5ad validator for HTAN Phase 2 single cell/single nuc
 
 ## Installation
 
-(Pip install capability and directions pending)
-
-To check your installation, run:
+1. It is recommended that you create and a virtual environment:
 
 ```commandline
-python validate.py example/HTAN_h5ad_exemplar_2025_03_03.h5ad output_file.txt
+python -m venv /path/to/new/virtual/environment
 ```
+Then, activate the virtual environment:
+
+```commandline
+source /path/to/new/virtual/environment/bin/activate
+```
+
+2. Install the HTAN h5ad package using pip:
+
+```commandline
+pip install HTAN-h5ad-validate
+```
+
+3. To check your installation, run:
+
+```commandline
+HTAN-h5ad-validate example/HTAN_h5ad_exemplar_2025_03_03.h5ad output_file.txt
+```
+You should see the following messages on your screen in green:
+
+```
+File:  example/HTAN_h5ad_exemplar_2025_03_03.h5ad
+Running cellxgene-schema
+Cellxgene run successful. Please check the output file to see if warnings exist.
+Running HTAN-specific validation
+Validation Passed!
+```
+You should also see a new file called "output_file.txt" with the following messages:
+
+```
+cellxgene-schema output: Starting validation...
+WARNING: Dataframe 'var' only has 12641 rows. Features SHOULD NOT be filtered from expression matrix.
+Validation complete in 0:00:03.421082 with status is_valid=True
+```
+
+Please note this is a test h5ad. Your h5ad should not have filtered features!
 
 ## Use
 To validate an h5ad file, run the following from the command line:
 
 ```commandline
-python validate.py {path/to/your/h5ad} {output_filename}.txt
+HTAN-h5ad-validate {path/to/your/h5ad} {output_filename}.txt
 ```
 replacing {path/to/your/h5ad} and {output_filename} with appropriate text strings. (Please see Installation instructions for an example.)
 
@@ -29,35 +62,49 @@ If the h5ad file fails validation, please resolve the errors noted and retry val
 ## Information for Developers
 To further develop this code, please use Python >= 3.8.
 
-Next, it is recommended that you create a virtual environment:
+1. It is recommended that you create a virtual environment:
 
 ```commandline
-python -m venv .venv
+python -m venv /path/to/new/virtual/environment
 ```
-
-To activate the virtual environment:
+Then, activate the virtual environment:
 
 ```commandline
-source .venv/bin/activate
+source /path/to/new/virtual/environment/bin/activate
 ```
 
-Then, install all dependencies:
+2. Clone this github repository.
+
+3. Run pip install locally with optional developer dependencies:
 
 ```commandline
-pip install -r requirements.txt
+pip install -e ".[dev]"
 ```
 
-To run the validator from the command line, run:
+4. To run the validator from the command line, run:
 
+- For successful validation:
 ```commandline
-python validate.py example/HTAN_h5ad_exemplar_2025_03_03.h5ad output_file.txt
+HTAN-h5ad-validate example/HTAN_h5ad_exemplar_2025_03_03.h5ad output_file.txt
 ```
 
-To run the unit tests, run:
+- For errors in both CELLxGENE validation and HTAN validations:
+```commandline
+HTAN-h5ad-validate example/HTAN_h5ad_error_exemplar.h5ad output_file.txt
+```
+
+- For successful CELLxGENE, but HTAN validation errors, run:
+```commandline
+HTAN-h5ad-validate example/HTAN_h5ad_exemplar_HTANonly_error.h5ad output_file.txt
+```
+
+5. To run the unit tests, run:
 
 ```commandline
 pytest tests
 ```
+Please see the README.md in the tests folder for information about the tests.
+
 ### Validate.py
 
 Provided a valid h5ad file path and an output filename, Validate.py will: 

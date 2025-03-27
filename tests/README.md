@@ -46,5 +46,5 @@ The following tests exist in this folder:
 
     - sets incorrect_path to nonsense path
     - sets non_h5ad to tests/not_real_h5ad.h5ad (a text file saved with .h5ad extension).
-    - runs validator.py with incorrect path, asserts error exit code.
-    - runs validator.py with non_h5ad, assert error exit code.
+    - calls run_validate with incorrect path, asserts error exit code.
+    - calls run_validate with non_h5ad, assert error exit code.
