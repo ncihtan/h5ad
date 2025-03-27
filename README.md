@@ -1,7 +1,7 @@
 # HTAN h5ad Validator
 
 This is an (AnnData 0.10) h5ad validator for HTAN Phase 2 single cell/single nuclei RNA-sequencing data. It:
-1. runs [cellxgene-schema validate](https://github.com/chanzuckerberg/single-cell-curation) to check if the h5ad file conforms to CELLxGENE's schema; and
+1. Runs [cellxgene-schema validate](https://github.com/chanzuckerberg/single-cell-curation) to check if the h5ad file conforms to CELLxGENE's schema; and
 2. Runs additional scripts to validate HTAN-specific requirements.
 
 ## Installation
@@ -26,7 +26,7 @@ pip install HTAN-h5ad-validate
 3. To check your installation, run:
 
 ```commandline
-HTAN-h5ad-validate example/HTAN_h5ad_exemplar_2025_03_03.h5ad output_file.txt
+HTAN-h5ad-validate example output_file.txt
 ```
 You should see the following messages on your screen in green:
 
@@ -85,17 +85,17 @@ pip install -e ".[dev]"
 
 - For successful validation:
 ```commandline
-HTAN-h5ad-validate example/HTAN_h5ad_exemplar_2025_03_03.h5ad output_file.txt
+HTAN-h5ad-validate exemplars/HTAN_h5ad_exemplar_2025_03_03.h5ad output_file.txt
 ```
 
 - For errors in both CELLxGENE validation and HTAN validations:
 ```commandline
-HTAN-h5ad-validate example/HTAN_h5ad_error_exemplar.h5ad output_file.txt
+HTAN-h5ad-validate exemplars/HTAN_h5ad_error_exemplar.h5ad output_file.txt
 ```
 
 - For successful CELLxGENE, but HTAN validation errors, run:
 ```commandline
-HTAN-h5ad-validate example/HTAN_h5ad_exemplar_HTANonly_error.h5ad output_file.txt
+HTAN-h5ad-validate exemplars/HTAN_h5ad_exemplar_HTANonly_error.h5ad output_file.txt
 ```
 
 5. To run the unit tests, run:
@@ -146,8 +146,8 @@ Provided a valid h5ad file path and an output filename, Validate.py will:
     - checks for presence of obs.cell_enrichment.
     - checks that all unique values in obs.cell_enrichment match r"^CL:(00000000|[0-9]{7}[+-])$"
     - strips + or - character from the cell_enrichment term to check if the CL term is valid.
-        - valid CL terms taken from file htan/CL_codes_human.tsv
-        - CL:00000000 (no enrichment) added to htan/CL_codes_human.tsv before term checked.
+        - valid CL terms taken from file CL_codes_human.tsv (src/h5ad_validate/references)
+        - CL:00000000 (no enrichment) added to CL_codes_human.tsv before term checked.
     - if any errors, pass_code[1] is set to 1 and error strings added to error_list.
 - self.check_intron_inclusion(adata.obs)
     - checks for presence of obs.intron_inclusion.

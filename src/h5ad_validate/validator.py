@@ -2,7 +2,7 @@ import re
 import subprocess
 import click
 import pandas as pd
-
+from h5ad_validate.get_data import get_ref
 
 class Validator:
     """HTAN h5ad Validator."""
@@ -93,7 +93,8 @@ class Validator:
         # POSSIBLE TO DO: add step to check for valid CL term
         pattern = (
             r"^CL:(00000000|[0-9]{7}[+-])$")
-        CL_ontology = pd.read_csv("reference/CL_codes_human.tsv", sep='\t')
+        ref_file = get_ref()
+        CL_ontology = pd.read_csv(ref_file, sep='\t')
         CL_valid_terms = list(CL_ontology['Permissible Value'])
         CL_valid_terms.append("CL:00000000")
         if "cell_enrichment" in obs:
