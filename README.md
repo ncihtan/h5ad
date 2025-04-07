@@ -73,10 +73,11 @@ Then, activate the virtual environment:
 source /path/to/new/virtual/environment/bin/activate
 ```
 
-2. Clone the github repository:
+2. Clone the github repository and move its directory:
 
 ```commandline
 git clone git@github.com:ncihtan/h5ad.git
+cd h5ad
 ```
 
 3. Run pip install locally with optional developer dependencies:
