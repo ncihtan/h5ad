@@ -73,7 +73,7 @@ Then, activate the virtual environment:
 source /path/to/new/virtual/environment/bin/activate
 ```
 
-2. Clone the github repository and move its directory:
+2. Clone the github repository and move to its directory:
 
 ```commandline
 git clone git@github.com:ncihtan/h5ad.git
