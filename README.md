@@ -6,7 +6,7 @@ This is an (AnnData 0.10) h5ad validator for HTAN Phase 2 single cell/single nuc
 
 ## Installation
 
-1. It is recommended that you create and a virtual environment:
+1. It is recommended that you create a virtual environment:
 
 ```commandline
 python -m venv /path/to/new/virtual/environment
@@ -73,7 +73,11 @@ Then, activate the virtual environment:
 source /path/to/new/virtual/environment/bin/activate
 ```
 
-2. Clone this github repository.
+2. Clone the github repository:
+
+```commandline
+git clone git@github.com:ncihtan/h5ad.git
+```
 
 3. Run pip install locally with optional developer dependencies:
 
