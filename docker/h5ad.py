@@ -22,12 +22,16 @@ def run_h5ad():
 
     print(result.stdout)
 
-    if "Cellxgene run has errors." in result.stdout:
-        return 1
-    if "HTAN Validation Failed." in result.stdout:
-        return 1
-    if "An error occurred" in result.stdout:
-        return 1
+    failure_strings = ["Cellxgene run has errors.", "HTAN Validation Failed.", "An error occurred"]
+
+    for string in failure_strings:
+        if string in result.stdout:
+            lines = []
+            with open('output_file.txt', 'r', encoding="utf-8") as f:
+                for line in f:
+                    lines.append(line)
+            print(lines)
+            return 1
 
     return 0
 
