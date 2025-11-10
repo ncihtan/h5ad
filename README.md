@@ -158,3 +158,10 @@ Provided a valid h5ad file path and an output filename, Validate.py will:
     - checks for presence of obs.intron_inclusion.
     - verifies all unique values in obs.intron_inclusion are in ['yes','no']
     - if any errors, pass_code[1] is set to 1 and error strings added to error_list.
+
+
+## Docker
+
+This tool will be used by [DCQC](https://github.com/Sage-Bionetworks-Workflows/py-dcqc). For DCQC to the needs to be a docker image. To build this image go to the `docker` folder and build using:
+`docker build -t ghcr.io/sage-bionetworks-workflows/htan-h5ad-validator:<TAG> .` inserting the version you want to tag the image with. The image is at `ghcr.io/sage-bionetworks-workflows/htan-h5ad-validator`.
+
